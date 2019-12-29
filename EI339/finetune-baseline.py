@@ -20,7 +20,9 @@ data = load_benchmark(DATASET_PATH, vocab)
 
 model = deepmoji_transfer(nb_classes, data['maxlen'], PRETRAINED_PATH)
 model.summary()
-model, acc = finetune(model, data['texts'], data['labels'], nb_classes,
-                      data['batch_size'], method='last')
+model, acc = finetune(model, data['texts'], data['labels'], nb_classes, data['batch_size'], method='last')
+
+model.save('model-baseline.h5')
+
 
 print('Acc: {}'.format(acc))
