@@ -1,6 +1,13 @@
 import csv
 import os
 
+from os.path import abspath, dirname
+ROOT_PATH = dirname(dirname(abspath(__file__)))
+
+RESULTS_PATH = '{}/EI339/results'.format(ROOT_PATH)
+resList = os.listdir(RESULTS_PATH)
+
+
 
 header = [ 'dataset', 'new', 'last', 'full', 'chain-thaw' ]
 rows = []
@@ -8,7 +15,6 @@ scores = {
 
 }
 
-resList = os.listdir('results')
 
 
 for resFile in resList:
@@ -53,7 +59,7 @@ for dataset in scores:
 print rows
 
 
-with open('./results/result_acc.csv', 'w') as f:
+with open('{}/result_acc.csv'.format(RESULTS_PATH), 'w') as f:
     ff = csv.writer(f)
     ff.writerow(header)
     ff.writerows(rows)

@@ -143,7 +143,9 @@ def deepmoji_architecture(nb_classes, nb_tokens, maxlen, feature_output=False, e
     # ordering of the way the merge is done is important for consistency with the pretrained model
     lstm_0_output = Bidirectional(LSTM(512, return_sequences=True), name="bi_lstm_0")(x)
     lstm_1_output = Bidirectional(LSTM(512, return_sequences=True), name="bi_lstm_1")(lstm_0_output)
-    x = concatenate([lstm_1_output, lstm_0_output, x])
+    lstm_2_output = Bidirectional(LSTM(512, return_sequences=True), name="bi_lstm_2")(lstm_1_output)
+    lstm_3_output = Bidirectional(LSTM(512, return_sequences=True), name="bi_lstm_3")(lstm_2_output)
+    x = concatenate([lstm_3_output, lstm_0_output, x])
 
     # if return_attention is True in AttentionWeightedAverage, an additional tensor
     # representing the weight at each timestep is returned

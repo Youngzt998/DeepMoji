@@ -10,7 +10,7 @@ from deepmoji.finetuning import (
 
 ROOT_PATH = dirname(dirname(abspath(__file__)))
 VOCAB_PATH = '{}/model/vocabulary.json'.format(ROOT_PATH)
-PRETRAINED_PATH = '{}/model/deepmoji_weights.hdf5'.format(ROOT_PATH)
+PRETRAINED_PATH = None
 DATASET_PATH = '../data/SS-Youtube/raw.pickle'
 nb_classes = 2
 
@@ -20,9 +20,9 @@ data = load_benchmark(DATASET_PATH, vocab)
 
 model = deepmoji_transfer(nb_classes, data['maxlen'], PRETRAINED_PATH)
 model.summary()
-model, acc = finetune(model, data['texts'], data['labels'], nb_classes, data['batch_size'], method='chain-thaw')
+model, acc = finetune(model, data['texts'], data['labels'], nb_classes, data['batch_size'], method='new')
 
-model.save('model-baseline.h5')
+model.save('model-new-arch-test.h5')
 
 
 print('Acc: {}'.format(acc))
